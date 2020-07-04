@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Estimate</title>
+<style>
+body{
+width: 30%;
+}
+.Estimate-position {
+	text-align: center;
+}
+.pad-10 {
+	padding: 10px 10px;
+}
+
+.pad-top-10 {
+	padding-top: 10px;
+}
+
+.pad-bottom-10 {
+	padding-bottom: 10px;
+}
+
+.pad-left-10 {
+	padding-left: 10px;
+}
+
+.pad-right-10 {
+	padding-right: 10px;
+}
+
+.pad-left-5px {
+	padding-left: 5px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.Estimate-size {
+	font-size: 54px;
+}
+.Estimate-padding {
+	padding: 13px;
+}
+.div-border {
+	border-style: groove;
+	border-width: medium;
+}
+
+.documentInfo-padding {
+	padding: 15px;
+}
+.text-right {
+	text-align: right;
+}
+/*.background-color {
+	background-color: 	#7FFFD4;
+}*/
+.text-font-size {
+	font-size: 12px
+}
+.font-color {
+	color: ;
+}
+.label-color {
+	color: blue;
+}
+.all{
+	[[${properties}]];
+}
+</style>
+</head>
+<body>
+	<div class="container page-margin">
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table pad-top-10  pad-left-10 pad-right-10 "
+					border="1">
+					<tr>
+					<td> <img src="https://www.vicbis.com/wp-content/uploads/2018/03/RS-LOGO-1.jpg" height="93px" width="205px"/></td>
+						<td class="Estimate-position Estimate-size Estimate-padding">Estimate</td>
+					</tr>
+					<tr>
+						<table border="1">
+							<tr class="text-font-size font-color">
+								<td class="documentInfo-padding">
+									<label class="label-color">#</label>:<b>ESt-17</b><br />
+									<label class="label-color">Estimate Date</label>:<b>10/01/2020</b><br/> 
+									<label class="label-color">Expiry Date</label>: <b>10/01/2020</b><br /> 
+									<label class="label-color">Reference#</label>:<b>321014</b><br/></td>
+								<td style="vertical-align: top; padding-left: 10px;">Sales
+									person<b>: Richard James</b></td><br />
+							</tr>
+							<tr>
+								<td><b>Bill To</b></td>
+								<td><b>Ship To</b></td>
+							</tr>
+							<tr class="text-font-size font-color">
+								<td><span><b>Rob Joe Traders</b></span><br /> <span>34,
+										Riche Street</span><br /> <span>Chennai</span><br /> <span>631603
+										Tamil Nadu</span><br /> <span>India</span></td>
+								<td style="vertical-align: top;"><span><b>34,
+											Riche Street</b></span><br /> <span>Chennai</span><br /> <span>631603
+										Tamil Nadu</span><br /> <span>India</span></td>
+							</tr>
+						</table>
+					</tr>
+					<table border="1">
+						<tr>
+							<th>#</th>
+							<th>Item Description</th>
+							
+							<th>Rate</th>
+							<th>Discount</th>
+							<th>Tax %</th>
+							<th>Tax</th>
+							<th>Amount</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>Brochure Design<br />Brochure Design Single Sided Color
+							</td>
+							
+							<td>300.00</td>
+							<td>0.00</td>
+							<td>7.00%</td>
+							<td>21.00</td>
+							<td>300.00</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>Web Design Packages(Template) - Basic <br />Custom
+								Themes for your business. Inclusive of 10 <br />hours of
+								marketing and annual training
+							</td>
+							
+							<td>250.00</td>
+							<td>0.00</td>
+							<td>4.70%</td>
+							<td>11.75</td>
+							<td>250.00</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>Print Ad - Basic - Color<br />Print Ad 1/8 size Color
+							</td>
+							
+							
+							<td>250.00</td>
+							<td>0.00</td>
+							<td>4.70%</td>
+							<td>11.75</td>
+							<td>250.00</td>
+						</tr>
+						<table border="1">
+							<tr>
+								<td class="font-color">Total In Words<br />
+									<b class="text-font-size"><i>Indian Rupee Six Hundred Sixty-Two and
+											Seventy-Five Paise Only</i></b><br /> Looking forward for your
+									business.<br /> <b>Terms  Conditions</b><br /> Your company's
+									Terms and Conditions will be displayed here. You can add <br />it
+									in the Estimate Preferences page under Settings.
+								</td>
+								<td style="padding-left: 452px;"><span
+									style="text-align: right;">sub total 300</span></td>
+							</tr>
+							<tr></tr>
+						</table>
+					</table>
+				</table>
+			</div>
+		</div>
+		</div>
+</body>
+</html>

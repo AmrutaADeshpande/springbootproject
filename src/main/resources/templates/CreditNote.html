@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <style media="all" type="text/css">
+        .pcs-template{
+	font-family: [[${properties.getPdfFont().getFontName()}]];
+	font-size:[[${properties.getFontSize()}]]pt; 
+	color:[[${properties.getFontColor()}]];
+	background:[[${templatePropertiesBackgroundColor}]];
+}
+.propertiesbackgrounImage{
+	background: url(http://192.168.0.108:8090/v1/getImage/[[${properties.getBackgroundImage()}]]/image) no-repeat  [[${properties.getImagePosition().getImagePosition()}]];
+	background-size: auto;
+}
+.pcs-header-content {
+	font-size: 9pt;
+	color: #333333;
+	background-color:[[${headerBackgroundColor}]];
+}
+.header-background-image{
+	background: url(http://192.168.0.108:8090/v1/getImage/[[${templateHeader.getBackgroundImage()}]]/image) no-repeat  [[${templateHeader.getImagePosition().getImagePosition()}]];
+	background-size:auto;
+}
+.footer-background-image{
+	background: url(http://192.168.0.108:8090/v1/getImage/[[${templatefooter.getBackgroundImage()}]]/image) no-repeat  [[${templatefooter.getImagePosition().getImagePosition()}]];
+	background-size: auto;
+}
+.footer-signature-image{
+	background: url(http://192.168.0.108:8090/v1/getImage/[[${templatefooter.getSignatureImage()}]]/image) no-repeat  [[${templatefooter.getImagePosition().getImagePosition()}]];
+	background-size:200.0px;
+}
+/*template properties margin*/
+.pcs-template-body {
+	padding:[[${properties.getMarginTop()}]]in [[${properties.getMarginRight()}]]in  [[${properties.getMarginBottom()}]]in [[${properties.getMarginLeft()}]]in;
+}
+.pcs-template-footer {
+	height: 0.700000in;
+	font-size:[[${templatefooter.getFontSize()}]]pt;
+	color:[[${templatefooter.getFontColor()}]];
+	padding: 0 0.400000in 0 0.550000in;
+	background-color:[[${templateFooterBackgroundColor}]];
+}
+
+.pcs-footer-content {
+	word-wrap: break-word;
+	color: #aaaaaa;
+}
+
+/*label color template properties*/
+.pcs-label {
+	color:[[${properties.getLabelColor()}]];
+}
+
+.pcs-entity-title{
+	font-size: [[${templateHeader.getDocumentTitleFontSize()}]]pt;
+	color:[[${templateHeader.getDocumentTitleFontColor()}]];
+}
+
+.pcs-orgname {
+	font-size:[[${templateHeader.getOrgnizationNameFontSize()}]]pt;
+	color:[[${templateHeader.getOrgnizationNameColor()}]];
+}
+
+.pcs-customer-name {
+	font-size: [[${templateHeader.getCustmoerNameFontSize()}]]pt;
+	color: [[${templateHeader.getCustomerNameFontColor()}]];
+}
+
+.pcs-itemtable-header {
+	font-size:[[${templateItemTableLayout.getTabelHeaderFontSize()}]]pt;
+	color:[[${templateItemTableLayout.getTabelHeaderFontColor()}]];
+	background-color:[[${itemTableLayoutTabelHeaderBackgroundColor}]];
+}
+
+.pcs-itemtable-breakword {
+	word-wrap: break-word;
+}
+
+.pcs-taxtable-header {
+	font-size: 9pt;
+	color: #ffffff;
+	background-color: #3c3d3a;
+}
+
+.breakrow-inside {
+	page-break-inside: avoid;
+}
+
+.breakrow-after {
+	page-break-after: auto;
+}
+
+.pcs-item-row {
+	font-size: [[${templateItemTableLayout.getItemRowFontSize()}]]pt;
+	border-bottom: 1.2px ridge [[${itemTableLayoutTableBorderColor}]];
+	background-color: [[${itemTableLayoutItemRowBackgroundColor}]];
+	color: [[${templateItemTableLayout.getItemRowFontColor()}]];
+}
+
+.pcs-item-sku {
+	margin-top: 2px;
+	font-size: 10px;
+	color: #444444;
+}
+
+.pcs-item-desc {
+	color: [[${templateItemTableLayout.getItemDescriptionRowFontColor()}]];
+	font-size: [[${templateItemTableLayout.getItemDescriptionRowFontSize()}]]pt;
+}
+
+.pcs-balance {
+    font-size:[[${templateTotalLayout.getBalanceDueFontSize()}]]pt;
+	background-color:[[${templateBalanceDueBackgroundColor}]];
+	color:[[${templateTotalLayout.getBalanceDueFontColor()}]];
+}
+
+.pcs-totals {
+	font-size:[[${templateTotalLayout.getTotalFontSize()}]]pt;
+	color:[[${templateTotalLayout.getTotalFontColor()}]];
+	background-color:[[${templateTotalBackgroundColor}]];
+	page-break-inside: avoid;
+}
+
+.pcs-notes {
+	font-size:[[${templatefooter.getNotesFontSize()}]]pt;
+}
+
+.pcs-terms {
+	font-size:[[${templatefooter.getTermsAndConditionFontSize()}]]pt;
+}
+
+.pcs-header-first {
+	background-color: #ffffff;
+	font-size: 9pt;
+	color: #333333;
+	height: auto;
+}
+
+.pcs-status {
+	color:;
+	font-size: 15pt;
+	border: 3px solid;
+	padding: 3px 8px;
+}
+
+.billto-section {
+	padding-top: 0mm;
+	padding-left:0mm;
+}
+
+.shipto-section {
+	padding-top: 0mm;
+	padding-left: 0mm;
+}
+
+@page :first { @top-center { content:element(header);
+	
+}
+
+margin-top: 0 .700000in;
+}
+.pcs-template-header {
+	padding: 0 0.400000in 0 0.550000in;
+	height: 0.700000in;
+}
+
+.pcs-template-fill-emptydiv {
+	display: table-cell;
+	content: " ";
+	width: 100%;
+}
+
+/* Additional styles for RTL compat */
+
+/* Helper Classes */
+.inline {
+	display: inline-block;
+}
+
+.v-top {
+	vertical-align: top;
+}
+
+.text-align-right {
+	text-align: right;
+}
+
+.rtl .text-align-right {
+	text-align: left;
+}
+
+.text-align-left {
+	text-align: left;
+}
+
+.rtl .text-align-left {
+	text-align: right;
+}
+
+/* Helper Classes End */
+.item-details-inline {
+	display: inline-block;
+	margin: 0 10px;
+	vertical-align: top;
+	max-width: 70%;
+}
+
+.total-in-words-container {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.total-in-words-label {
+	vertical-align: top;
+	padding: 0 10px;
+}
+
+.total-in-words-value {
+	width: 170px;
+}
+
+.total-section-label {
+	padding: 5px 10px 5px 0;
+	vertical-align: middle;
+}
+
+.total-section-value {
+	width: 120px;
+	vertical-align: middle;
+	padding: 10px 10px 10px 5px;
+}
+
+.rtl .total-section-value {
+	padding: 10px 5px 10px 10px;
+}
+
+.tax-summary-description {
+	color: #727272;
+	font-size: 8pt;
+}
+
+.bharatqr-bg {
+	background-color: #f4f3f8;
+}
+
+/* Overrides/Patches for RTL compat */
+.rtl th {
+	text-align: inherit;
+	/* Specifically setting th as inherit for supporting RTL */
+}
+/* Overrides/Patches End */
+
+/* Signature styles */
+.sign-border {
+	width: 200px;
+	border-bottom: 1px solid #000;
+}
+
+.sign-label {
+	display: table-cell;
+	font-size: 10pt;
+	padding-right: 5px;
+}
+/* Signature styles End */
+
+/* Subject field styles */
+.subject-block {
+	margin-top: 20px;
+}
+
+.subject-block-value {
+	word-wrap: break-word;
+	white-space: pre-wrap;
+	line-height: 14pt;
+	margin-top: 5px;
+}
+/* Subject field styles End*/
+.lineitem-column {
+	padding: 10px 10px 5px 10px;
+	word-wrap: break-word;
+}
+.logo-size{
+width: [[${templateHeader.getOrgnizationLogoWidth()}]]px;
+}
+ #annexurehtml::before {
+    border-top: 2px dashed #000;
+    position: relative;
+    margin: 0 -38px 10px -53px;
+    display: block;
+    content: "";
+    }
+</style>
+    <div class="pcs-template ">
+        <div class="header-background-image pcs-template-header " id="header" >
+    		<span class=" pcs-header-content" th:utext="${templateHeader.getCustomizeHeaderContent()}"></span>
+             <div class="pcs-template-fill-emptydiv"></div>
+        </div>
+		<div class="">
+        <div class=" propertiesbackgrounImage pcs-template-body ">
+            <table style="width:100%;table-layout: fixed;">
+                <tbody> 
+                    <tr>
+                <td style="vertical-align: top; width:50%;">
+                   <div th:if="${templateHeader.isShowOrgnizationLogo()}==true">
+                     <img class="logo-size" src="https://businessinmaharashtra.com/BusinessAdImages/2/14982205797624.png" id="logo_content">
+              	    </div>
+                    <span class="pcs-orgname" th:if="${templateHeader.isShowOrgnizationName()}==true"><b>RTS</b></span><br>
+                    <span class="pcs-label">
+                    <span style="word-wrap: break-word;" id="tmp_org_address" th:if="${templateHeader.isShowOrgnizationAddress()}==true">Maharashtra 
+ 										<br>India</span>
+                    </span>
+                </td>
+                <td class="text-align-right v-top" style="width:50%;" >
+                    <span class="pcs-entity-title" th:if="${templateHeader.isShowDocumentTitle()}==true">
+                   		 <b th:text="${templateHeader.getDocumentTitleName()!=null} ? ${templateHeader.getDocumentTitleName()}" >Estimate</b></span><br>
+                    <span id="tmp_entity_number" style="font-size: 10pt;" class="pcs-label" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Number Field'}">
+                    	<b th:text="${documentInfomation.getLabelDisplayName()}"></b><b>CN-177</b>
+                    </span> 
+                </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table style="width:100%;margin-top:30px;table-layout:fixed;">
+                <tbody>
+                    <tr>
+                      
+	            	<td style="width:60%;vertical-align:bottom;word-wrap: break-word;">
+		            	<div>
+		            		<label class="pcs-label" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Bill To'}"><b th:text="${documentInfomation.getLabelDisplayName()}"></b></label>
+		            	</div>
+	            		  <span id="tmp_billing_address" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Bill To'}">
+	            		  <strong>
+	            		  	<span class="pcs-customer-name" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Bill To'}" th:text="${templateCreditNoteBO.getCustomerName()}"></span>
+	            		  </strong>
+	            		  <br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getAddressLine1()}"></span><br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getAddressLine2()}"></span><br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getLandmark()}"></span><br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getCity()}"></span><br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getState()}"></span>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress().getZipCode()}"></span><br>
+				 			<span th:text="${templateCreditNoteBO.getBillToAddress(). getCountry()}"></span>
+	            		</span>
+	            		
+                        </td>
+                        <td align="right" style="vertical-align:bottom;width: 40%;">
+                            <table style="float:right;width: 100%;table-layout: fixed;word-wrap: break-word;" border="0"
+                                cellspacing="0" cellpadding="0">
+                                <tbody>
+                                     <tr th:each="documentInfomation : ${templateDocumentInformatiomIsActive}">
+			                                <td style="padding:5px 10px 5px 0px;font-size:10pt;" class="text-align-right" >
+			                                    <span class="pcs-label"  th:if="${documentInfomation.getLabelName()} !='Bill To' and ${documentInfomation.getLabelName()} != 'Ship To' and ${documentInfomation.getLabelName()} != 'Number Field'" >
+			                                    	<b th:text="${documentInfomation.getLabelDisplayName()}"></b><b>:</b>
+			                                    </span>
+			                                </td>
+			                                <td class="text-align-right">
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Date Field'}" th:text="${templateCreditNoteBO.getDocumentInformation().getDateField()}"></span>
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Reference Field'}" th:text="${templateCreditNoteBO.getDocumentInformation().getReferenceField()}"></span>
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Salesperson'}" th:text="${templateCreditNoteBO.getDocumentInformation().getSalesperson()}"></span>
+			                                </td>
+			                            </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="subject_field" class="subject-block">
+                <div id="tmp_subject_label" class="pcs-label subject-block-label">Subject :</div>
+                <div class="subject-block-value">Description</div>
+            </div>
+            <table style="width:100%;margin-top:20px;table-layout:fixed;" class="pcs-itemtable" border="0"
+                cellspacing="0" cellpadding="0">
+                <thead>
+                  <tr style="height:32px;" class="pcs-itemtable-header pcs-itemtable-breakword">
+		             <th th:each="iteamTableLables : ${templateItemTableLabelsIsActive}"  th:style="'width:' +@{${iteamTableLables.getWidth()}}+'%' "   th:text="${iteamTableLables.getLabelDisplayName()}" >
+		           	</th>
+	        	</tr>
+                </thead>
+                <tbody class="itemBody">
+                    <tbody class="itemBody" th:remove="tag">
+				   <tr class="breakrow-inside breakrow-after"  th:each="creditNoteItemList : ${templateCreditNoteBO.getItemList()}">
+				        <td valign="top" style="word-wrap: break-word;" class="pcs-item-row" th:each="iteamTableLables : ${templateItemTableLabelsIsActive}"  th:style="'width:' +@{${iteamTableLables.getWidth()}}+'%'" >
+							<span th:if="${iteamTableLables.getLableName() == 'Line Item Number'}" th:text="${creditNoteItemList.getItemLineNumber()}"></span>
+							<div>
+							<span th:if="${iteamTableLables.getLableName() == 'Item & Description'}" th:text="${creditNoteItemList.getItemDetails()}"></span><br/>
+							<span class="pcs-item-desc" th:if="${iteamTableLables.getLableName() == 'Item & Description'}" th:text="${creditNoteItemList.getItemDescription()}"></span>		
+							</div>	
+							<span  th:if="${iteamTableLables.getLableName() == 'Quantity'}"  th:text="${creditNoteItemList.getQuantity()}"></span>
+							<span  th:if="${iteamTableLables.getLableName() == 'Rate'}" th:text="${creditNoteItemList.getRate()}"></span>
+				       		<span th:if="${iteamTableLables.getLableName() == 'Tax(%)'}"  th:text="${creditNoteItemList.getTax()}"></span>
+				       		<span th:if="${iteamTableLables.getLableName() == 'Tax Amount'}"  th:text="${creditNoteItemList.getTax()}"></span>
+				        	<span th:if="${iteamTableLables.getLableName() == 'Discount'}" th:text="${creditNoteItemList.getDiscount()}"></span>
+				        	<span th:if="${iteamTableLables.getLableName() == 'Amount'}" th:text="${creditNoteItemList.getAmount()}"></span>
+				        </td> 
+		            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+			<div style="width: 100%;margin-top: 1px;">
+			    <div class="total-item-section">
+			       <div th:each="totalLabels : ${templateTotalLabelsIsActive}" th:if="${totalLabels.getLabelName() =='Quantity'}">
+       				  <label class="pcs-totals" th:text="${totalLabels.getLabelDisplayName()}"></label>
+       					 <span id="total_items">3.00</span>
+      				</div>
+			      <div style="white-space: pre-wrap;"></div>
+			    </div>
+				    <div class="total-section">
+				      <table class="pcs-totals" cellspacing="0" border="0" width="100%">
+				         <tbody th:each="totalLabels : ${templateTotalLabelsIsActive}" th:if="${totalLabels.getLabelName() =='Show Total Section'}">
+	                           <tr  style="height:10px;" th:each="totalLabels : ${templateTotalLabelsIsActive}" >
+					                <td class="total-section-label text-align-right" valign="middle" align="right" style="padding: 5px 10px 5px 0;"  >
+										<span  th:if="${totalLabels.getLabelName()} !='Show Total Section' and ${totalLabels.getLabelName()} != 'Show amount in words' and ${totalLabels.getLabelName()} != 'Quantity' and ${totalLabels.getLabelName()} !='Total' and ${totalLabels.getLabelName()} != 'Show Payment Details'"  th:text="${totalLabels.getLabelDisplayName()}"></span>                
+					                </td>
+					                <td>
+					                	<span th:if="${totalLabels.getLabelName()=='Sub Total'}" th:text="${templateDeliveryChallanPrintBo.getTotalSectionBO().getSubTotal()}"></span>
+					                	<span th:if="${totalLabels.getLabelName()=='Shipping Charges'}" th:text="${templateDeliveryChallanPrintBo.getTotalSectionBO().getShippingCharges()}"></span>
+					                	<span th:if="${totalLabels.getLabelName()=='Discount '}" th:text="${templateDeliveryChallanPrintBo.getTotalSectionBO().getDiscount()}"></span>	
+					                </td>
+	         			    </tr> 
+                            <tr>
+                                <td class="total-section-label text-align-right" th:each="totalLabels : ${templateTotalLabelsIsActive}" th:if="${totalLabels.getLabelName() =='Total'}">
+                                   <b th:text="${totalLabels.getLabelDisplayName()}"></b>
+                                  </td>
+                                <td id="tmp_total" class="total-section-value text-align-right"><b>₹662.75</b></td>
+                            </tr>
+		        </tbody>
+		      </table>
+		    </div>
+    <div style="clear: both;"></div>
+  </div>
+			
+            <div style="width: 100%;margin-top: 10px;">
+                <table cellspacing="0" border="0" width="100%">
+                    <tbody>
+                        <tr>
+                            <td class="total-in-words-label text-align-right">Total In Words:</td>
+                            <td class="total-in-words-value text-align-left"><i><b>Indian Rupee Six Hundred Sixty-Two
+                                        and Seventy-Five Paise Only</b></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="clear: both;"></div>
+            </div>
+
+
+
+           <div style="clear:both;margin-top:50px;width:100%;">
+			    <label style="font-size: 10pt;" id="tmp_notes_label" class="pcs-label" th:text="${templatefooter.getNotesLabelName()!=null} ? ${templatefooter.getNotesLabelName()}">Notes</label><br>
+			    <p style="margin-top:7px;white-space: pre-wrap;word-wrap: break-word;" class="pcs-notes" th:text="${templateCreditNoteBO.getNotes()}"></p>
+			</div>
+            <div style="clear:both;margin-top:30px;width:100%;" th:if="${templatefooter.isTermsAndConditionIsActive()}==true">
+			      <label style="font-size: 10pt;" id="tmp_terms_label" class="pcs-label" th:text="${templatefooter.getTermsAndConditionLabelName()!=null} ? ${templatefooter.getTermsAndConditionLabelName()}">Terms &amp; Conditions</label><br>
+			      <p style="margin-top:7px;white-space: pre-wrap;word-wrap: break-word;" class="pcs-terms" th:text="${templateCreditNoteBO.getTermsConditions()}"></p>
+  			</div>
+            <div style="margin-top:30px;" th:if="${templatefooter.isSignatureIsActive()}==true">
+        <label style="display: table-cell;font-size: 10pt;padding-right: 5px;" class="pcs-label" th:text="${templatefooter.getSignatureLabelName()!=null} ? ${templatefooter.getSignatureLabelName()}">Authorized Signature</label>
+          <div style="display: table-cell;">
+          <div class="footer-signature-image">
+          	<div style="font-size: 10pt;padding-right: 5px;"></div>
+              <div style="display: inline-block;width: 200px;border-bottom: 1px solid #000;" ></div>
+              </div>
+              <div style="font-size: 15px" th:text="${templatefooter.getSignatureName()!=null} ? ${templatefooter.getSignatureName()}"></div>
+          </div>
+
+        </div>
+           <div th:if="${templateAnnexure.getAnnexureContent().length()}>=1" style=" page-break-before: always;margin-top:20px;page-break-inside: auto;" id="annexurehtml" th:utext="${templateAnnexure.getAnnexureContent()}">
+        </div> 
+        <div class="pcs-template-footer footer-background-image" th:utext="${templatefooter.getCustomizeFooterContent()}">
+            <div>
+
+            </div>
+        </div>
+
+    </div>
+</div>  
+</html>

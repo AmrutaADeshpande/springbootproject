@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//src/main/java=UTF-8
+encoding//src/main/resources=UTF-8
+encoding//src/main/resources/templates/Bills.html=UTF-8
+encoding//src/main/resources/templates/CreditNote.html=UTF-8
+encoding//src/main/resources/templates/CustomerStatement.html=UTF-8
+encoding//src/main/resources/templates/DeliveryChallan.html=UTF-8
+encoding//src/main/resources/templates/Estimate.html=UTF-8
+encoding//src/main/resources/templates/Invoice.html=UTF-8
+encoding//src/main/resources/templates/PaymentReceipt.html=UTF-8
+encoding//src/main/resources/templates/PurchaseOrder.html=UTF-8
+encoding//src/main/resources/templates/VendorCredits.html=UTF-8
+encoding//src/main/resources/templates/VendorStatement.html=UTF-8
+encoding//src/main/resources/templates/salesorder.html=UTF-8
+encoding//src/test/java=UTF-8
+encoding//src/test/resources=UTF-8
+encoding/<project>=UTF-8

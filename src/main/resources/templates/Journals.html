@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style media="all" type="text/css">
+        @font-face {
+            font-family: 'WebFont-Ubuntu';
+            src: local(Ubuntu), url(https://fonts.gstatic.com/s/ubuntu/v10/4iCs6KVjbNBYlgoKcg72nU6AF7xm.woff2);
+        }
+		
+		.propertiesbackgrounImage{
+			background: url(http://192.168.0.108:8090/v1/getImage/[[${properties.getBackgroundImage()}]]/image) no-repeat  [[${properties.getImagePosition().getImagePosition()}]];
+			background-size:auto;
+		}
+		.header-background-image{
+			background: url(http://192.168.0.108:8090/v1/getImage/[[${templateHeader.getBackgroundImage()}]]/image) no-repeat  [[${templateHeader.getImagePosition().getImagePosition()}]];
+			background-size:auto;
+		}
+		.footer-background-image{
+			background: url(http://192.168.0.108:8090/v1/getImage/[[${templatefooter.getBackgroundImage()}]]/image) no-repeat  [[${templatefooter.getImagePosition().getImagePosition()}]];
+			background-size:200.0px;
+		}
+		.footer-signature-image{
+			background: url(http://192.168.0.108:8090/v1/getImage/[[${templatefooter.getSignatureImage()}]]/image) no-repeat  [[${templatefooter.getImagePosition().getImagePosition()}]];
+			background-size:200.0px;
+		}
+        .pcs-template {
+           	font-family: [[${properties.getPdfFont().getFontName()}]];
+			font-size:[[${properties.getFontSize()}]]pt; 
+			color:[[${properties.getFontColor()}]];
+			background:[[${templatePropertiesBackgroundColor}]];
+
+        }
+
+        .pcs-header-content {
+            font-size: 9pt;
+            color: #333333;
+            background-color:[[${headerBackgroundColor}]];
+        }
+
+        .pcs-template-body {
+            padding:[[${properties.getMarginTop()}]]in [[${properties.getMarginRight()}]]in  [[${properties.getMarginBottom()}]]in [[${properties.getMarginLeft()}]]in;
+        }
+
+        .pcs-template-footer {
+            height: 0.700000in;
+			font-size:[[${templatefooter.getFontSize()}]]pt;
+			color:[[${templatefooter.getFontColor()}]];
+			padding: 0 0.400000in 0 0.550000in;
+			background-color:[[${templateFooterBackgroundColor}]];
+        }
+
+        .pcs-footer-content {
+            word-wrap: break-word;
+            color: #aaaaaa;
+            border-top: 1px solid #adadad;
+        }
+
+        .pcs-label {
+            color:[[${properties.getLabelColor()}]];
+        }
+
+        .pcs-entity-title {
+            font-size: [[${templateHeader.getDocumentTitleFontSize()}]]pt;
+			color:[[${templateHeader.getDocumentTitleFontColor()}]];
+        }
+
+        .pcs-orgname {
+            font-size:[[${templateHeader.getOrgnizationNameFontSize()}]]pt;
+			color:[[${templateHeader.getOrgnizationNameColor()}]];
+        }
+
+        .pcs-customer-name {
+           	font-size: [[${templateHeader.getCustmoerNameFontSize()}]]pt;
+			color: [[${templateHeader.getCustomerNameFontColor()}]];
+        }
+
+        .pcs-itemtable-header {
+             font-size:[[${templateItemTableLayout.getTabelHeaderFontSize()}]]pt;
+			 color:[[${templateItemTableLayout.getTabelHeaderFontColor()}]];
+			 background-color:[[${itemTableLayoutTabelHeaderBackgroundColor}]];
+        }
+
+        .pcs-itemtable-breakword {
+            word-wrap: break-word;
+        }
+
+        .pcs-taxtable-header {
+            font-size: 9pt;
+            color: #ffffff;
+            background-color: #3c3d3a;
+        }
+
+        .breakrow-inside {
+            page-break-inside: avoid;
+        }
+
+        .breakrow-after {
+            page-break-after: auto;
+        }
+
+        .pcs-item-row {
+           	font-size: [[${templateItemTableLayout.getItemRowFontSize()}]]pt;
+			border-bottom: 1.2px ridge [[${itemTableLayoutTableBorderColor}]];
+			background-color: [[${itemTableLayoutItemRowBackgroundColor}]];
+			color: [[${templateItemTableLayout.getItemRowFontColor()}]];
+        }
+
+        .pcs-item-sku {
+            margin-top: 2px;
+            font-size: 10px;
+            color: #444444;
+        }
+
+        .pcs-item-desc {
+            color: [[${templateItemTableLayout.getItemDescriptionRowFontColor()}]];
+			font-size: [[${templateItemTableLayout.getItemDescriptionRowFontSize()}]]pt;
+        }
+
+        .pcs-balance {
+            font-size:[[${templateTotalLayout.getBalanceDueFontSize()}]]pt;
+			background-color:[[${templateBalanceDueBackgroundColor}]];
+			color:[[${templateTotalLayout.getBalanceDueFontColor()}]];
+        }
+
+        .pcs-totals {
+            font-size:[[${templateTotalLayout.getTotalFontSize()}]]pt;
+			color:[[${templateTotalLayout.getTotalFontColor()}]];
+			background-color:[[${templateTotalBackgroundColor}]];
+        }
+
+        .pcs-notes {
+            font-size:[[${templatefooter.getNotesFontSize()}]]pt;
+        }
+
+        .pcs-terms {
+            font-size:[[${templatefooter.getTermsAndConditionFontSize()}]]pt;
+        }
+
+        .pcs-header-first {
+            background-color: #ffffff;
+            font-size: 9pt;
+            color: #333333;
+            height: auto;
+        }
+
+        .pcs-status {
+            color:#54A355;
+            font-size: 15pt;
+            border: 3px solid;
+            padding: 3px 8px;
+        }
+
+        .billto-section {
+            padding-top: 0mm;
+            padding-left: 0mm;
+        }
+
+        .shipto-section {
+            padding-top: 0mm;
+            padding-left: 0mm;
+        }
+
+        @page :first {
+            @top-center {
+                content: element(header);
+            }
+
+            margin-top: 0.700000in;
+        }
+
+        .pcs-template-header {
+            padding: 0 0.400000in 0 0.550000in;
+            height: 0.700000in;
+        }
+
+        .pcs-itemtable-description {
+            width: 40%
+        }
+
+        .pcs-template-fill-emptydiv {
+            display: table-cell;
+            content: " ";
+            width: 100%;
+        }
+
+
+        /* Additional styles for RTL compat */
+
+        /* Helper Classes */
+
+        .inline {
+            display: inline-block;
+        }
+
+        .v-top {
+            vertical-align: top;
+        }
+
+        .text-align-right {
+            text-align: right;
+        }
+
+        .rtl .text-align-right {
+            text-align: left;
+        }
+
+        .text-align-left {
+            text-align: left;
+        }
+
+        .rtl .text-align-left {
+            text-align: right;
+        }
+
+        /* Helper Classes End */
+
+        .item-details-inline {
+            display: inline-block;
+            margin: 0 10px;
+            vertical-align: top;
+            max-width: 70%;
+        }
+
+        .total-in-words-container {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .total-in-words-label {
+            vertical-align: top;
+            padding: 0 10px;
+        }
+
+        .total-in-words-value {
+            width: 170px;
+        }
+
+        .total-section-label {
+            padding: 5px 10px 5px 0;
+            vertical-align: middle;
+        }
+
+        .total-section-value {
+            width: 120px;
+            vertical-align: middle;
+            padding: 10px 10px 10px 5px;
+        }
+
+        .rtl .total-section-value {
+            padding: 10px 5px 10px 10px;
+        }
+
+        .tax-summary-description {
+            color: #727272;
+            font-size: 8pt;
+        }
+
+        .bharatqr-bg {
+            background-color: #f4f3f8;
+        }
+
+        /* Overrides/Patches for RTL compat */
+        .rtl th {
+            text-align: inherit;
+            /* Specifically setting th as inherit for supporting RTL */
+        }
+
+        /* Overrides/Patches End */
+
+        /* Signature styles */
+        .sign-border {
+            width: 200px;
+            border-bottom: 1px solid #000;
+        }
+
+        .sign-label {
+            display: table-cell;
+            font-size: 10pt;
+            padding-right: 5px;
+        }
+
+        /* Signature styles End */
+
+        /* Subject field styles */
+        .subject-block {
+            margin-top: 20px;
+        }
+
+        .subject-block-value {
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            line-height: 14pt;
+            margin-top: 5px;
+        }
+
+        /* Subject field styles End*/
+
+        .lineitem-header {
+            padding: 5px 10px 5px 5px;
+            word-wrap: break-word;
+        }
+
+        .rtl .lineitem-header {
+            padding: 5px 5px 5px 10px;
+        }
+
+        .lineitem-column {
+            padding: 10px 10px 5px 10px;
+            word-wrap: break-word;
+            vertical-align: top;
+        }
+
+        .lineitem-content-right {
+            padding: 10px 10px 10px 5px;
+        }
+
+        .rtl .lineitem-content-right {
+            padding: 10px 5px 10px 10px;
+        }
+
+        .total-number-section {
+            width: 45%;
+            padding: 10px 10px 3px 3px;
+            font-size: 9pt;
+            float: left;
+        }
+
+        .rtl .total-number-section {
+            float: right;
+        }
+
+        .total-section {
+            width: 50%;
+            float: right;
+        }
+
+        .rtl .total-section {
+            float: left;
+        }
+   .logo-size{
+			width: [[${templateHeader.getOrgnizationLogoWidth()}]]px;
+	}
+ #annexurehtml::before {
+    border-top: 2px dashed #000;
+    position: relative;
+    margin: 0 -38px 10px -53px;
+    display: block;
+    content: "";
+    }
+        /* Subject field styles End*/
+    </style>
+    <style media="all" type="text/css">
+        .pcs-footer-content {
+            word-wrap: break-word;
+            color: #aaaaaa;
+            border-top: 1px solid #adadad;
+        }
+
+        .pcs-itemtable-breakword {
+            word-wrap: break-word;
+        }
+
+        .pcs-balance {
+            background-color: #f5f4f3;
+            font-size: 9pt;
+            color: #000000;
+        }
+
+        .pcs-totals {
+            font-size: 9pt;
+            color: #000000;
+            background-color: #ffffff;
+        }
+
+        @page :first {
+            @top-center {
+                content: element(header);
+            }
+
+            margin-top: 0.700000in;
+        }
+
+        .pcs-template-fill-emptydiv {
+            display: table-cell;
+            content: " ";
+            width: 100%;
+        }
+
+
+        /* Additional styles for RTL compat */
+
+        /* Helper Classes */
+
+        .rtl {
+            direction: rtl;
+        }
+
+        .v-top {
+            vertical-align: top;
+        }
+
+        .text-align-right {
+            text-align: right;
+        }
+
+        .rtl .text-align-right {
+            text-align: left;
+        }
+
+        /* Helper Classes End */
+        .pcs-journal-header-section {
+            float: left;
+            width: 35%;
+        }
+
+        .rtl .pcs-journal-header-section {
+            float: right;
+        }
+
+        .pcs-journal-title-section {
+            float: right;
+            width: 35%;
+        }
+
+        .rtl .pcs-journal-title-section {
+            float: left;
+        }
+
+        .pcs-total-section-label {
+            padding: 5px 10px 5px 0;
+            vertical-align: middle;
+        }
+
+        .pcs-total-section-value {
+            width: 120px;
+            vertical-align: middle;
+            padding: 10px 10px 10px 5px;
+        }
+
+        .rtl .pcs-total-section-value {
+            padding: 10px 0px 10px 5px;
+        }
+
+        /* Overrides/Patches for RTL compat */
+        .rtl th {
+            text-align: inherit;
+            /* Specifically setting th as inherit for supporting RTL */
+        }
+
+        /* Overrides/Patches End */
+
+        .total-section {
+            width: 60%;
+            float: right;
+        }
+
+        .rtl .total-section {
+            float: left;
+        }
+    </style>
+</head>
+    <div class="pcs-template ">
+       <div class="pcs-template-header pcs-header-content header-background-image" id="header" th:utext="${templateHeader.getCustomizeHeaderContent()}">
+            <div class="pcs-template-fill-emptydiv"></div> 
+        </div>
+        <div class="propertiesbackgrounImage">
+        <div class="pcs-template-body">
+            <div style="display:table;width:100%;">
+                <div class="text-align-left pcs-journal-header-section">
+                    <div th:if="${templateHeader.isShowOrgnizationLogo()}==true">
+                                <img class="logo-size" src="https://books.zoho.in/ZFInvoiceLogo.zbfs?logo_id=8c3463936ec43be0beed86017b33ecd1"
+                                     id="logo_content">
+                        </div>
+                    <span class="pcs-orgname" th:if="${templateHeader.isShowOrgnizationName()}==true"><b>RTS</b></span><br>
+                    <span class="pcs-label" th:if="${templateHeader.isShowOrgnizationAddress()}==true">
+                        <span id="tmp_org_address">Maharashtra
+                            India</span>
+                    </span>
+                </div>
+                <div class="text-align-right pcs-journal-title-section">
+                    <span class="pcs-entity-title"   th:if="${templateHeader.isShowDocumentTitle()}==true"><b th:text="${templateHeader.getDocumentTitleName()!=null} ? ${templateHeader.getDocumentTitleName()}">Journal</b></span><br>
+                    <span id="tmp_entity_number" style="font-size: 10pt;" class="pcs-label" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Number Field'}">
+                        <b th:text="${documentInfomation.getLabelDisplayName()}"></b><b >13</b>
+                    </span>
+                </div>
+            </div>
+            <table style="width:100%;margin-top:30px;table-layout:fixed;">
+                <tbody>
+                    <tr>
+                        <td style="width:60%;vertical-align:bottom;word-wrap: break-word;">
+                            <div style="padding-bottom: 5px;" th:each="documentInfomation : ${templateDocumentInformatiomIsActive}" th:if="${documentInfomation.getLabelName() == 'Notes'}">
+                                <label style="font-size: 10pt;" id="notes_label" class="pcs-label" th:text="${documentInfomation.getLabelDisplayName()}">Notes</label>
+                                <br>
+                                <span id="notes" th:text="${templateJournalPrintBO.getDocumentInformation().getNotes()}"></span>
+                            </div>
+                        </td>
+                        <td align="right" style="vertical-align:bottom;width: 40%;">
+                            <table style="float:right;width: 100%;table-layout: fixed;word-wrap: break-word;" border="0"
+                                cellspacing="0" cellpadding="0">
+                                <tbody>
+                                    <tr th:each="documentInfomation : ${templateDocumentInformatiomIsActive}">
+			                                <td style="padding:5px 10px 5px 0px;font-size:10pt;" class="text-align-right" >
+			                                    <span class="pcs-label"  th:if="${documentInfomation.getLabelName()} !='Notes' and ${documentInfomation.getLabelName()} != 'Number Field'" th:text="${documentInfomation.getLabelDisplayName()}"></span>
+			                                </td>
+			                                <td class="text-align-right">
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Date Field'}" th:text="${templateJournalPrintBO.getDocumentInformation().getDateField()}"></span>
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Reference Field'}" th:text="${templateJournalPrintBO.getDocumentInformation().getReferenceField()}"></span>
+			                               		<span th:if="${documentInfomation.getLabelName() == 'Amount'}" th:text="${templateJournalPrintBO.getDocumentInformation().getAmount()}"></span>
+			                                </td>
+			                            </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="width:100%;margin-top:20px;table-layout:fixed;" border="0" cellspacing="0" cellpadding="0"
+                class="pcs-itemtable">
+                <thead>
+                   <tr style="height:32px;" class="pcs-itemtable-header pcs-itemtable-breakword">
+			              <th th:each="iteamTableLables : ${templateItemTableLabelsIsActive}"  th:style="'width:' +@{${iteamTableLables.getWidth()}}+'%' "   th:text="${iteamTableLables.getLabelDisplayName()}" >
+			           		</th>
+		        	</tr>
+                </thead>
+                <tbody>
+                    <tr  style="height: 46px;" th:each="JournalItemList : ${templateJournalPrintBO.getJournalTableList()}">
+				       <td  valign="top" style="word-wrap: break-word;" class="pcs-item-row" th:each="iteamTableLables : ${templateItemTableLabelsIsActive}"  th:style="'width:' +@{${iteamTableLables.getWidth()}}+'%'" >
+							<span th:if="${iteamTableLables.getLableName() == 'Account Details'}" th:text="${JournalItemList.getAccountDetails()}"><br><b th:text="${JournalItemList.getAccountDescription()}"></b></span>
+							<span th:if="${iteamTableLables.getLableName() == 'Account Code'}" th:text="${JournalItemList.getAccountCode()}"></span>
+							<span th:if="${iteamTableLables.getLableName() == 'Contact Details'}" th:text="${JournalItemList.getContactDetails()}"></span>
+							<span th:if="${iteamTableLables.getLableName() == 'Debits'}" th:text="${JournalItemList.getDebits()}"></span>
+							<span th:if="${iteamTableLables.getLableName() == 'Credits'}" th:text="${JournalItemList.getCredits()}"></span>
+							
+			        </td> 
+            	</tr>
+                </tbody>
+            </table>
+
+            <div style="width: 100%;margin-top: 1px;">
+                <div class="v-top total-section">
+                    <table class="pcs-totals" cellspacing="0" border="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td class="pcs-total-section-label text-align-right">Sub Total</td>
+                                <td class="pcs-total-section-value text-align-right">3,840.00</td>
+                                <td class="pcs-total-section-value text-align-right">3,500.00</td>
+                            </tr>
+                            <tr style="height:10px;">
+                                <td class="pcs-total-section-label text-align-right">Sample Tax1 (5.00%)</td>
+                                <td class="pcs-total-section-value text-align-right">10.00</td>
+                                <td class="pcs-total-section-value text-align-right">0.00</td>
+                            </tr>
+                            <tr style="height:10px;">
+                                <td class="pcs-total-section-label text-align-right">Sample Tax1 (10.00%)</td>
+                                <td class="pcs-total-section-value text-align-right">0.00</td>
+                                <td class="pcs-total-section-value text-align-right">350.00</td>
+                            </tr>
+                            <tr style="height:40px;" class="pcs-balance">
+                                <td class="text-align-right" valign="middle" style="padding:5px 10px 5px 0;">
+                                    <b>Total</b></td>
+                                <td class="pcs-total-section-value text-align-right"><b>INR3,850</b></td>
+                                <td class="pcs-total-section-value text-align-right"><b>INR3,850</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+        <div class="pcs-template-footer footer-background-image">
+            <div th:utext="${templatefooter.getCustomizeFooterContent()}">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>
